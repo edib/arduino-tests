@@ -1,32 +1,41 @@
 #include <AFMotor.h>
 #include <Servo.h>              // Add library
-Servo servo1;               
-Servo servo2;               
+Servo ust;
+Servo alt;
 
-int servo_position = 0 ;
-int path = 180;
+int gunes_tepe = 45;
+int gunes_alt = 90;
 
 void setup() {
-  
-servo1.attach (10);          // Define the servo signal pins
-servo2.attach (9);          // Define the servo signal pins
+
+  ust.attach (10);          // Define the servo signal pins
+  alt.attach (9);          // Define the servo signal pins
 
 }
 
 void loop() {
- for (; servo_position <=path; servo_position +=1) {
+  /* ust motorun yolu
+    //90dan başlayacak. bu durumda tam karşıya bakıyor.
+    45 e kadar ya da güneşin en tepede olduğu yere kadar gelecek.
+    sonra geri 90a dönecek.
 
-    servo1.write(servo_position);
-    servo2.write(servo_position);
-    delay(1000);
+  */
+  int bas = 180;
+  for (;  gunes_alt >= gunes_tepe; gunes_alt -= 1) {
+
+    ust.write(gunes_alt);
+    alt.write(bas);
+    bas = bas - 2;
+    delay(200);
   }
 
-  for (path; servo_position >= 0; servo_position -=1){
+  for (; gunes_alt <= 90; gunes_alt += 1) {
 
-    servo1.write(servo_position);
-    servo2.write(servo_position);
-    delay(1000);
+    ust.write(gunes_alt);
+    alt.write(bas);
+    bas = bas - 2;
+    delay(200);
   }
 
-  //delay(100000);
+  delay(10000);
 }
