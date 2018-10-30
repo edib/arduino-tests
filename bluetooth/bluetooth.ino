@@ -7,7 +7,7 @@
 
 #include <SoftwareSerial.h>
 SoftwareSerial BTserial(2, 3); // RX | TX
-
+int lp = 4;
 void setup()
 {
 
@@ -16,11 +16,12 @@ void setup()
 
   // HC-06 default serial speed is 9600
   BTserial.begin(9600);
-pinMode(12,OUTPUT);
+pinMode(lp,OUTPUT);
 }
 
 void loop()
 {
+  //digitalWrite(lp, HIGH);  
   // Keep reading from HC-06 and send to Arduino Serial Monitor
   if (BTserial.available())
   {
@@ -30,9 +31,9 @@ void loop()
     // char ı integer'a çevirmek için
     int myint = data - '0';
     for (int i = 0; i<myint; i++) {
-    digitalWrite(12, HIGH);  
+    digitalWrite(lp, HIGH);  
     delay(200);    
-    digitalWrite(12, LOW);  
+    digitalWrite(lp, LOW);  
     delay(100);    
     }
   }
